@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
-import { createApi } from 'unsplash-js';
+import { createApi } from 'unsplash-js'
+
+import ImageGrid from './ImageGrid'
 
 const SearchImage = () => {
     const [searchValue, setSearchValue] = useState('')
+    const [images, setImages] = useState(undefined)
 
     const unsplash = createApi({
         accessKey: 'VleyzCT_-kQShHR-NsTdEe8mSpV7BUJL0uCG4FpHn6g',
@@ -21,7 +24,8 @@ const SearchImage = () => {
             for (let i = 0; i < 6; ++i) {
                 urls.push(result.response.results[i].urls.small)
             }
-            const data = JSON.stringify({ city: searchValue, urls })
+            const data = { city: searchValue, urls }
+            setImages(data)
             setSearchValue('')
         })
     }
@@ -39,6 +43,7 @@ const SearchImage = () => {
             <button className="button" onClick={handleSubmit}>
                 Search
             </button>
+            {images && <ImageGrid images={images} />}
         </>
     )
 }
