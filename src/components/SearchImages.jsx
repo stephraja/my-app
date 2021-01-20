@@ -3,6 +3,8 @@ import { createApi } from 'unsplash-js'
 
 import ImageGrid from './ImageGrid'
 
+const IMAGE_NUMBER = 10
+
 const SearchImage = () => {
     const [searchValue, setSearchValue] = useState('')
     const [images, setImages] = useState(undefined)
@@ -21,7 +23,7 @@ const SearchImage = () => {
     const handleSubmit = () => {
         unsplash.search.getPhotos({ query: searchValue }).then(result => {
             const urls = []
-            for (let i = 0; i < 6; ++i) {
+            for (let i = 0; i < IMAGE_NUMBER; ++i) {
                 urls.push(result.response.results[i].urls.small)
             }
             const data = { city: searchValue, urls }
